@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="TSI1Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="Employees.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="EmployeesTPH">
           <Key>
             <PropertyRef Name="EMP_ID" />
@@ -16,43 +16,57 @@
           <Property Name="RATE" Type="float" />
           <Property Name="TYPE_EMP" Type="int" Nullable="false" />
         </EntityType>
-        <EntityContainer Name="TSI1ModelStoreContainer">
+        <EntityContainer Name="EmployeesStoreContainer">
           <EntitySet Name="EmployeesTPH" EntityType="Self.EmployeesTPH" Schema="dbo" store:Type="Tables" />
         </EntityContainer>
       </Schema>
     </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
-      <Schema Namespace="TSI1Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-        <EntityType Name="EmployeesTPH">
+      <Schema Namespace="Employees" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="EmployeesTPH" Abstract="true">
           <Key>
             <PropertyRef Name="EMP_ID" />
           </Key>
           <Property Name="EMP_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="NAME" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="START_DATE" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="SALARY" Type="Int32" />
-          <Property Name="RATE" Type="Double" />
-          <Property Name="TYPE_EMP" Type="Int32" Nullable="false" />
         </EntityType>
-        <EntityContainer Name="TSI1Entities" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="EmployeesEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="EmployeesTPH" EntityType="Self.EmployeesTPH" />
         </EntityContainer>
+        <EntityType Name="PartTime" BaseType="Employees.EmployeesTPH" >
+          <Property Name="RATE" Type="Double" Nullable="false" />
+        </EntityType>
+        <EntityType Name="FullTime" BaseType="Employees.EmployeesTPH" >
+          <Property Name="SALARY" Type="Int32" Nullable="false" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="TSI1ModelStoreContainer" CdmEntityContainer="TSI1Entities">
+        <EntityContainerMapping StorageEntityContainer="EmployeesStoreContainer" CdmEntityContainer="EmployeesEntities">
           <EntitySetMapping Name="EmployeesTPH">
-            <EntityTypeMapping TypeName="TSI1Model.EmployeesTPH">
+            <EntityTypeMapping TypeName="IsTypeOf(Employees.EmployeesTPH)">
               <MappingFragment StoreEntitySet="EmployeesTPH">
                 <ScalarProperty Name="EMP_ID" ColumnName="EMP_ID" />
-                <ScalarProperty Name="NAME" ColumnName="NAME" />
                 <ScalarProperty Name="START_DATE" ColumnName="START_DATE" />
+                <ScalarProperty Name="NAME" ColumnName="NAME" />
+              </MappingFragment>
+            </EntityTypeMapping>
+            <EntityTypeMapping TypeName="IsTypeOf(Employees.FullTime)">
+              <MappingFragment StoreEntitySet="EmployeesTPH">
+                <ScalarProperty Name="EMP_ID" ColumnName="EMP_ID" />
                 <ScalarProperty Name="SALARY" ColumnName="SALARY" />
+                <Condition ColumnName="TYPE_EMP" Value="1" />
+              </MappingFragment>
+            </EntityTypeMapping>
+            <EntityTypeMapping TypeName="IsTypeOf(Employees.PartTime)">
+              <MappingFragment StoreEntitySet="EmployeesTPH">
+                <ScalarProperty Name="EMP_ID" ColumnName="EMP_ID" />
                 <ScalarProperty Name="RATE" ColumnName="RATE" />
-                <ScalarProperty Name="TYPE_EMP" ColumnName="TYPE_EMP" />
+                <Condition ColumnName="TYPE_EMP" Value="0" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

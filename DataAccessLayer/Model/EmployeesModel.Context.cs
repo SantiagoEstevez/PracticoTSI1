@@ -13,10 +13,10 @@ namespace DataAccessLayer.Model
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class TSI1Entities : DbContext
+    public partial class EmployeesEntities : DbContext
     {
-        public TSI1Entities()
-            : base("name=TSI1Entities")
+        public EmployeesEntities()
+            : base("name=EmployeesEntities")
         {
         }
     
