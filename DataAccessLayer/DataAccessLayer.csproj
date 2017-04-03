@@ -68,13 +68,13 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>EmployeesModel.edmx</DependentUpon>
     </Compile>
-    <Compile Include="Model\EmployeesTPH.cs">
+    <Compile Include="Model\EmployeeT.cs">
       <DependentUpon>EmployeesModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Model\FullTime.cs">
+    <Compile Include="Model\FullTimeEmployee.cs">
       <DependentUpon>EmployeesModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Model\PartTime.cs">
+    <Compile Include="Model\PartTimeEmployee.cs">
       <DependentUpon>EmployeesModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />

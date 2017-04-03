@@ -12,8 +12,10 @@ namespace DataAccessLayer.Model
     using System;
     using System.Collections.Generic;
     
-    public partial class FullTime : EmployeesTPH
+    public abstract partial class Employee
     {
-        public int SALARY { get; set; }
+        public int EmployeeId { get; set; }
+        public string Name { get; set; }
+        public System.DateTime StartDate { get; set; }
     }
 }

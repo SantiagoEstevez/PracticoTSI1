@@ -24,22 +24,22 @@
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="Employees" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-        <EntityType Name="EmployeesTPH" Abstract="true">
+        <EntityType Name="Employee" Abstract="true">
           <Key>
-            <PropertyRef Name="EMP_ID" />
+            <PropertyRef Name="EmployeeId" />
           </Key>
-          <Property Name="EMP_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="NAME" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="START_DATE" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="EmployeeId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="StartDate" Type="DateTime" Nullable="false" Precision="3" />
         </EntityType>
         <EntityContainer Name="EmployeesEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="EmployeesTPH" EntityType="Self.EmployeesTPH" />
+          <EntitySet Name="Employees" EntityType="Employees.Employee" />
         </EntityContainer>
-        <EntityType Name="PartTime" BaseType="Employees.EmployeesTPH" >
-          <Property Name="RATE" Type="Double" Nullable="false" />
+        <EntityType Name="PartTimeEmployee" BaseType="Employees.Employee" >
+          <Property Name="HourlyRate" Type="Double" Nullable="false" />
         </EntityType>
-        <EntityType Name="FullTime" BaseType="Employees.EmployeesTPH" >
-          <Property Name="SALARY" Type="Int32" Nullable="false" />
+        <EntityType Name="FullTimeEmployee" BaseType="Employees.Employee" >
+          <Property Name="Salary" Type="Int32" Nullable="false" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -47,25 +47,25 @@
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="EmployeesStoreContainer" CdmEntityContainer="EmployeesEntities">
-          <EntitySetMapping Name="EmployeesTPH">
-            <EntityTypeMapping TypeName="IsTypeOf(Employees.EmployeesTPH)">
+          <EntitySetMapping Name="Employees">
+            <EntityTypeMapping TypeName="IsTypeOf(Employees.Employee)">
               <MappingFragment StoreEntitySet="EmployeesTPH">
-                <ScalarProperty Name="EMP_ID" ColumnName="EMP_ID" />
-                <ScalarProperty Name="START_DATE" ColumnName="START_DATE" />
-                <ScalarProperty Name="NAME" ColumnName="NAME" />
+                <ScalarProperty Name="EmployeeId" ColumnName="EMP_ID" />
+                <ScalarProperty Name="StartDate" ColumnName="START_DATE" />
+                <ScalarProperty Name="Name" ColumnName="NAME" />
               </MappingFragment>
             </EntityTypeMapping>
-            <EntityTypeMapping TypeName="IsTypeOf(Employees.FullTime)">
+            <EntityTypeMapping TypeName="IsTypeOf(Employees.FullTimeEmployee)">
               <MappingFragment StoreEntitySet="EmployeesTPH">
-                <ScalarProperty Name="EMP_ID" ColumnName="EMP_ID" />
-                <ScalarProperty Name="SALARY" ColumnName="SALARY" />
+                <ScalarProperty Name="EmployeeId" ColumnName="EMP_ID" />
+                <ScalarProperty Name="Salary" ColumnName="SALARY" />
                 <Condition ColumnName="TYPE_EMP" Value="1" />
               </MappingFragment>
             </EntityTypeMapping>
-            <EntityTypeMapping TypeName="IsTypeOf(Employees.PartTime)">
+            <EntityTypeMapping TypeName="IsTypeOf(Employees.PartTimeEmployee)">
               <MappingFragment StoreEntitySet="EmployeesTPH">
-                <ScalarProperty Name="EMP_ID" ColumnName="EMP_ID" />
-                <ScalarProperty Name="RATE" ColumnName="RATE" />
+                <ScalarProperty Name="EmployeeId" ColumnName="EMP_ID" />
+                <ScalarProperty Name="HourlyRate" ColumnName="RATE" />
                 <Condition ColumnName="TYPE_EMP" Value="0" />
               </MappingFragment>
             </EntityTypeMapping>

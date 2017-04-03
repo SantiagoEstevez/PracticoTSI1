@@ -1,4 +1,5 @@
-﻿using Shared.Entities;
+﻿using DataAccessLayer.Model;
+using Shared.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,27 +12,46 @@ namespace DataAccessLayer
     {
         public void AddEmployee(Employee emp)
         {
-            throw new NotImplementedException();
+            using (var db = new EmployeesEntities())
+            {
+                db.Employees.Add(emp);
+                db.SaveChanges();
+            }
         }
 
         public void DeleteEmployee(int id)
         {
-            throw new NotImplementedException();
+            using (var db = new EmployeesEntities())
+            {
+                db.Employees.Remove(db.Employees.Find(id));
+                db.SaveChanges();
+            }
         }
 
         public void UpdateEmployee(Employee emp)
         {
-            throw new NotImplementedException();
+            using (var db = new EmployeesEntities())
+            {
+                Employee oEmpleado = db.Employees.Find(emp.Id);
+                oEmpleado = emp;
+                db.SaveChanges();
+            }
         }
 
         public List<Employee> GetAllEmployees()
         {
-            throw new NotImplementedException();
+            using (var db = new EmployeesEntities())
+            {
+                return db.Employees.ToList();
+            }
         }
 
         public Employee GetEmployee(int id)
         {
-            throw new NotImplementedException();
+            using (var db = new EmployeesEntities())
+            {
+                return db.Employees.Find(id);
+            }
         }
     }
 }

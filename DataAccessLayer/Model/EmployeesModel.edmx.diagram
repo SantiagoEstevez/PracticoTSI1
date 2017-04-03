@@ -5,11 +5,13 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="9cdd9301fe6843eca19c9d405133cdc4" Name="Diagram1">
-        <EntityTypeShape EntityType="Employees.EmployeesTPH" Width="1.5" PointX="2.125" PointY="0.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="Employees.PartTime" Width="1.5" PointX="3.5" PointY="3.625" />
-        <InheritanceConnector EntityType="Employees.PartTime" />
-        <EntityTypeShape EntityType="Employees.FullTime" Width="1.5" PointX="0.75" PointY="3.625" />
-        <InheritanceConnector EntityType="Employees.FullTime" />
+        <EntityTypeShape EntityType="Employees.Employee" Width="1.5" PointX="2.25" PointY="0.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Employees.PartTimeEmployee" Width="1.875" PointX="3.5" PointY="3.625" />
+        <InheritanceConnector EntityType="Employees.PartTimeEmployee" />
+        <EntityTypeShape EntityType="Employees.FullTimeEmployee" Width="1.875" PointX="0.625" PointY="3.625" />
+        <InheritanceConnector EntityType="Employees.FullTimeEmployee" />
+        <InheritanceConnector EntityType="Employees.FullTimeEmployee" />
+        <InheritanceConnector EntityType="Employees.PartTimeEmployee" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
