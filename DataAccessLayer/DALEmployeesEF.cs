@@ -42,7 +42,8 @@ namespace DataAccessLayer
         {
             using (var db = new EmployeesEntities())
             {
-                return db.Employees.ToList();
+                return (from Employee in db.Employees select Employee).ToList();
+                //return db.Employees.ToList();
             }
         }
 
@@ -50,6 +51,7 @@ namespace DataAccessLayer
         {
             using (var db = new EmployeesEntities())
             {
+                //return (from Employee in db.Employees where Employee.Id == id select new Employee);
                 return db.Employees.Find(id);
             }
         }
